@@ -17,7 +17,8 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    private static final String FROM = "pardhasaradhi.gavaraa@gmail.com";
+    @Value("${spring.mail.username}")
+    private String fromEmail;
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
@@ -51,7 +52,7 @@ public class EmailService {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(FROM);
+            helper.setFrom(fromEmail);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlBody, true);
